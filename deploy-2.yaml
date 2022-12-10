@@ -1,29 +1,28 @@
+---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test
   labels:
-    env: test
+    env: nginx-2
+  name: nginx-2
 spec:
   containers:
-  - name: jnlp
-    env:
-    - name: tool
-      value: jnlp
-  - name: maven
-    image: maven:3.8.1-jdk-8
-    command:
-    - sleep
-    args:
-    - 99d
-    env:
-    - name: tool
-      value: maven
-  - name: busybox
-    image: busybox
-    command:
-    - cat
-    tty: true
-    env:
-    - name: tool
-      value: busybox
+  - image: nginx
+    name: nginx-2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-2
+  labels:
+    env: nginx-2
+spec:
+  selector:
+    env: nginx-2
+  type: NodePort
+  ports:
+  - nodePort: 32051
+    port: 80
+    protocol: TCP
+    targetPort: 80
