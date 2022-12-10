@@ -22,7 +22,7 @@ spec:
     env: mynginx
   type: NodePort
   ports:
-  - nodePort: 32057
+  - nodePort: 32058
     port: 80
     protocol: TCP
     targetPort: 80
